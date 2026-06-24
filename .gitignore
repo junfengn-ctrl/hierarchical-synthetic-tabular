@@ -1,0 +1,11 @@
+# Generated experiment outputs and intermediate processed datasets.
+data/processed/
+
+# Local raw datasets. Keep the directory, but do not commit downloaded data files.
+data/raw/*
+!data/raw/.gitkeep
+
+# Local system/editor noise.
+.DS_Store
+__pycache__/
+*.py[cod]

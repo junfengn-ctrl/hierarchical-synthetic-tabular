@@ -1,0 +1,6 @@
+{
+  "weak_multimodal": "data/processed/weak_multimodal_benchmark.csv",
+  "weak_multimodal_gemini": "data/processed/weak_multimodal_gemini_benchmark.csv",
+  "adult_income": "data/processed/adult_income_clean.csv",
+  "german_credit": "data/processed/german_credit_clean.csv"
+}

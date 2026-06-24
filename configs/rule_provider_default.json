@@ -1,0 +1,26 @@
+{
+  "name": "bank_marketing_financial_phrasebank",
+  "description": "Weak top-down alignment between bank marketing target and finance text sentiment.",
+  "schema": {
+    "tabular_source": "bank_marketing",
+    "text_source": "financial_phrasebank",
+    "target_column": "target",
+    "text_label_column": "sentiment"
+  },
+  "alignment_rules": {
+    "target_to_text_sentiment": {
+      "0": [
+        "neutral",
+        "negative"
+      ],
+      "1": [
+        "positive",
+        "neutral"
+      ]
+    }
+  },
+  "constraints": {
+    "preserve_target_distribution": true,
+    "sample_text_with_replacement": true
+  }
+}

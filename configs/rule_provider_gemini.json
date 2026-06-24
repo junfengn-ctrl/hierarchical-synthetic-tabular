@@ -1,0 +1,26 @@
+{
+  "name": "BankMarketing_FinancialPhraseBank_Alignment",
+  "description": "Weakly aligns bank marketing subscription outcomes with financial sentiment texts based on semantic plausibility.",
+  "schema": {
+    "tabular_source": "bank_marketing",
+    "text_source": "financial_phrasebank",
+    "target_column": "target",
+    "text_label_column": "sentiment"
+  },
+  "alignment_rules": {
+    "target_to_text_sentiment": {
+      "0": [
+        "neutral",
+        "negative"
+      ],
+      "1": [
+        "positive"
+      ]
+    }
+  },
+  "constraints": {
+    "preserve_target_distribution": true,
+    "sample_text_with_replacement": true
+  },
+  "rationale": "Customers who subscribe to a term deposit (target=1) demonstrate financial capability and receptiveness, which aligns smoothly with favorable (positive) financial sentiment. Conversely, customers who decline (target=0) reflect the default state of rejection, lack of interest, or economic constraint, making them semantically suited for neutral or unfavorable (negative) financial text."
+}

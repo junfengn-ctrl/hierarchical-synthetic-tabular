@@ -1,0 +1,59 @@
+{
+  "financial_phrasebank": {
+    "input_csv": "data/raw/FinancialPhraseBank.csv",
+    "output_csv": "data/processed/financial_phrasebank_clean.csv",
+    "feature_output_csv": "data/processed/financial_phrasebank_features.csv",
+    "read_csv_kwargs": {
+      "header": null,
+      "names": [
+        "sentiment",
+        "text"
+      ]
+    },
+    "encodings": [
+      "utf-8-sig",
+      "utf-8",
+      "cp1252",
+      "latin1",
+      "iso-8859-1"
+    ],
+    "text_col": "text",
+    "label_col": "sentiment",
+    "valid_labels": [
+      "positive",
+      "neutral",
+      "negative"
+    ],
+    "label_to_id": {
+      "negative": 0,
+      "neutral": 1,
+      "positive": 2
+    },
+    "positive_hints": [
+      "gain",
+      "growth",
+      "profit",
+      "improve",
+      "increase",
+      "rose",
+      "higher",
+      "strong",
+      "up"
+    ],
+    "negative_hints": [
+      "decline",
+      "loss",
+      "fell",
+      "lower",
+      "drop",
+      "decrease",
+      "down",
+      "weak",
+      "layoff"
+    ],
+    "dedupe_cols": [
+      "text",
+      "sentiment"
+    ]
+  }
+}

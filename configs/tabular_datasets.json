@@ -1,0 +1,40 @@
+{
+  "bank_marketing": {
+    "input_csv": "data/raw/bankmarketing.csv",
+    "output_csv": "data/processed/bank_marketing_clean.csv",
+    "read_csv_kwargs": {
+      "sep": ";"
+    },
+    "target_col": "y",
+    "target_map": {
+      "no": 0,
+      "yes": 1
+    },
+    "drop_source_target": false,
+    "missing_tokens": []
+  },
+  "adult_income": {
+    "input_csv": "data/raw/adultincome.csv",
+    "output_csv": "data/processed/adult_income_clean.csv",
+    "read_csv_kwargs": {},
+    "target_col": "salary",
+    "target_map": {
+      "<=50K": 0,
+      ">50K": 1
+    },
+    "drop_source_target": true,
+    "missing_tokens": [
+      "?",
+      ""
+    ]
+  },
+  "german_credit": {
+    "input_csv": "data/raw/German_Credit_data.csv",
+    "output_csv": "data/processed/german_credit_clean.csv",
+    "read_csv_kwargs": {},
+    "target_col": "credit_risk",
+    "target_map": null,
+    "drop_source_target": true,
+    "missing_tokens": []
+  }
+}
