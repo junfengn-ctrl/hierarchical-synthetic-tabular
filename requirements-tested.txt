@@ -1,0 +1,7 @@
+# Direct dependencies verified with Python 3.11.
+# This file records a known-working environment for repository maintenance and CI.
+pandas==2.3.3
+numpy==2.4.3
+scikit-learn==1.8.0
+xgboost==3.2.0
+sdv==1.36.1
