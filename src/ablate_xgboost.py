@@ -12,8 +12,8 @@ from run_experiments import DATASETS, ensure_clean_datasets, parse_csv_list, sum
 from synth_xgboost import conditional_xgboost_synthesis
 
 
-WORKSHOP_DIR = Path(__file__).resolve().parents[1]
-DEFAULT_OUTPUT_DIR = WORKSHOP_DIR / "data" / "processed" / "xgboost_ablation"
+PROJECT_ROOT = Path(__file__).resolve().parents[1]
+DEFAULT_OUTPUT_DIR = PROJECT_ROOT / "data" / "processed" / "xgboost_ablation"
 
 
 ABLATIONS = [

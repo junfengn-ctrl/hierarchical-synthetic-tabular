@@ -8,9 +8,9 @@ import numpy as np
 import pandas as pd
 
 
-WORKSHOP_DIR = Path(__file__).resolve().parents[1]
-DEFAULT_INPUT_CSV = WORKSHOP_DIR / "data" / "processed" / "weak_multimodal_benchmark.csv"
-DEFAULT_OUTPUT_CSV = WORKSHOP_DIR / "data" / "processed" / "synthetic_gaussian_copula.csv"
+PROJECT_ROOT = Path(__file__).resolve().parents[1]
+DEFAULT_INPUT_CSV = PROJECT_ROOT / "data" / "processed" / "weak_multimodal_benchmark.csv"
+DEFAULT_OUTPUT_CSV = PROJECT_ROOT / "data" / "processed" / "synthetic_gaussian_copula.csv"
 
 
 def normal_cdf(values: np.ndarray) -> np.ndarray:

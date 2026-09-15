@@ -8,10 +8,10 @@ import pandas as pd
 from rule_provider import RuleProvider, load_rule_provider
 
 
-WORKSHOP_DIR = Path(__file__).resolve().parents[1]
-DEFAULT_BANK_CSV = WORKSHOP_DIR / "data" / "processed" / "bank_marketing_clean.csv"
-DEFAULT_TEXT_FEATURE_CSV = WORKSHOP_DIR / "data" / "processed" / "financial_phrasebank_features.csv"
-DEFAULT_OUTPUT_CSV = WORKSHOP_DIR / "data" / "processed" / "weak_multimodal_benchmark.csv"
+PROJECT_ROOT = Path(__file__).resolve().parents[1]
+DEFAULT_BANK_CSV = PROJECT_ROOT / "data" / "processed" / "bank_marketing_clean.csv"
+DEFAULT_TEXT_FEATURE_CSV = PROJECT_ROOT / "data" / "processed" / "financial_phrasebank_features.csv"
+DEFAULT_OUTPUT_CSV = PROJECT_ROOT / "data" / "processed" / "weak_multimodal_benchmark.csv"
 
 
 def sample_text_block(

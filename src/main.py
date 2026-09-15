@@ -15,12 +15,11 @@ from run_experiments import DATASETS, DEFAULT_OUTPUT_DIR as DEFAULT_EXPERIMENT_D
 from run_experiments import parse_csv_list, run_experiments
 
 
-WORKSHOP_DIR = Path(__file__).resolve().parents[1]
-DEFAULT_SDV_OUTPUT_DIR = WORKSHOP_DIR / "data" / "processed" / "experiments_sdv"
-DEFAULT_PLOT_OUTPUT = WORKSHOP_DIR / "data" / "processed" / "result_comparison.png"
-DEFAULT_PAPER_ARTIFACT_DIR = WORKSHOP_DIR / "data" / "processed" / "paper_artifacts"
-GEMINI_RULE_CONFIG_JSON = WORKSHOP_DIR / "configs" / "rule_provider_gemini.json"
-GEMINI_WEAK_ALIGNMENT_CSV = WORKSHOP_DIR / "data" / "processed" / "weak_multimodal_gemini_benchmark.csv"
+PROJECT_ROOT = Path(__file__).resolve().parents[1]
+DEFAULT_SDV_OUTPUT_DIR = PROJECT_ROOT / "data" / "processed" / "experiments_sdv"
+DEFAULT_PLOT_OUTPUT = PROJECT_ROOT / "data" / "processed" / "result_comparison.png"
+GEMINI_RULE_CONFIG_JSON = PROJECT_ROOT / "configs" / "rule_provider_gemini.json"
+GEMINI_WEAK_ALIGNMENT_CSV = PROJECT_ROOT / "data" / "processed" / "weak_multimodal_gemini_benchmark.csv"
 
 DEFAULT_TABULAR_DATASETS = list(DATASET_CONFIGS)
 DEFAULT_TEXT_DATASETS = list(TEXT_DATASET_CONFIGS)
@@ -66,7 +65,7 @@ def run_prepare() -> None:
         provider = load_rule_provider(rule_config)
         text_source = str(provider.config["schema"]["text_source"])
         benchmark_df = build_weak_alignment(
-            bank_csv=WORKSHOP_DIR / "data" / "processed" / "bank_marketing_clean.csv",
+            bank_csv=PROJECT_ROOT / "data" / "processed" / "bank_marketing_clean.csv",
             text_feature_csv=text_feature_outputs[text_source],
             output_csv=output_csv,
             rule_provider=provider,
@@ -134,36 +133,8 @@ def run_result_plot(experiments_output_dir: Path, sdv_output_dir: Path, plot_out
     print(f"Saved result comparison plot to: {plot_output}")
 
 
-def run_paper_appendix_artifacts(
-    experiments_output_dir: Path,
-    sdv_output_dir: Path,
-    ablation_output_dir: Path,
-    output_dir: Path,
-) -> None:
-    fast_summary_csv = experiments_output_dir / "experiment_summary.csv"
-    sdv_summary_csv = sdv_output_dir / "experiment_summary.csv"
-    missing = [path for path in [fast_summary_csv, sdv_summary_csv] if not path.exists()]
-    if missing:
-        print("Skipping paper appendix artifacts; missing summary file(s):")
-        for path in missing:
-            print(f"  {path}")
-        return
-
-    from generate_paper_appendix import generate_appendix_artifacts
-
-    generated = generate_appendix_artifacts(
-        fast_summary_csv=fast_summary_csv,
-        sdv_summary_csv=sdv_summary_csv,
-        ablation_summary_csv=ablation_output_dir / "xgboost_ablation_summary.csv",
-        output_dir=output_dir,
-        paper_tex=WORKSHOP_DIR / "tabular_synthetic.tex",
-    )
-    for path in generated:
-        print(f"Saved paper appendix artifact to: {path}")
-
-
 def main() -> None:
-    parser = argparse.ArgumentParser(description="Run the synthetic data generation workshop pipeline.")
+    parser = argparse.ArgumentParser(description="Run the hierarchical synthetic data benchmark pipeline.")
     parser.add_argument(
         "command",
         nargs="?",
@@ -238,12 +209,6 @@ def main() -> None:
         help="Output PNG path for the result comparison plot.",
     )
     parser.add_argument(
-        "--paper-artifact-dir",
-        type=Path,
-        default=DEFAULT_PAPER_ARTIFACT_DIR,
-        help="Output directory for reproducible paper appendix tables and figures.",
-    )
-    parser.add_argument(
         "--keep-run-artifacts",
         action="store_true",
         help="Keep per-run synthetic, fidelity, utility, and metadata files for debugging.",
@@ -295,12 +260,6 @@ def main() -> None:
             experiments_output_dir=args.experiments_output_dir,
             sdv_output_dir=args.sdv_output_dir,
             plot_output=args.plot_output,
-        )
-        run_paper_appendix_artifacts(
-            experiments_output_dir=args.experiments_output_dir,
-            sdv_output_dir=args.sdv_output_dir,
-            ablation_output_dir=args.ablation_output_dir,
-            output_dir=args.paper_artifact_dir,
         )
 
 

@@ -17,8 +17,8 @@ from synth_xgboost import conditional_xgboost_synthesis
 from config_utils import CONFIG_DIR, load_json_config, resolve_project_path
 
 
-WORKSHOP_DIR = Path(__file__).resolve().parents[1]
-DEFAULT_OUTPUT_DIR = WORKSHOP_DIR / "data" / "processed" / "experiments"
+PROJECT_ROOT = Path(__file__).resolve().parents[1]
+DEFAULT_OUTPUT_DIR = PROJECT_ROOT / "data" / "processed" / "experiments"
 DEFAULT_DATASET_REGISTRY_JSON = CONFIG_DIR / "experiment_datasets.json"
 
 

@@ -7,9 +7,9 @@ import pandas as pd
 from sklearn.ensemble import RandomForestClassifier, RandomForestRegressor
 
 
-WORKSHOP_DIR = Path(__file__).resolve().parents[1]
-DEFAULT_INPUT_CSV = WORKSHOP_DIR / "data" / "processed" / "weak_multimodal_benchmark.csv"
-DEFAULT_OUTPUT_CSV = WORKSHOP_DIR / "data" / "processed" / "synthetic_random_forest.csv"
+PROJECT_ROOT = Path(__file__).resolve().parents[1]
+DEFAULT_INPUT_CSV = PROJECT_ROOT / "data" / "processed" / "weak_multimodal_benchmark.csv"
+DEFAULT_OUTPUT_CSV = PROJECT_ROOT / "data" / "processed" / "synthetic_random_forest.csv"
 
 
 def infer_column_types(df: pd.DataFrame) -> tuple[list[str], list[str]]:

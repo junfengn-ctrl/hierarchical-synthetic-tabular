@@ -5,15 +5,15 @@ from pathlib import Path
 from typing import Any
 
 
-WORKSHOP_DIR = Path(__file__).resolve().parents[1]
-CONFIG_DIR = WORKSHOP_DIR / "configs"
+PROJECT_ROOT = Path(__file__).resolve().parents[1]
+CONFIG_DIR = PROJECT_ROOT / "configs"
 
 
 def resolve_project_path(value: str | Path) -> Path:
     path = Path(value)
     if path.is_absolute():
         return path
-    return WORKSHOP_DIR / path
+    return PROJECT_ROOT / path
 
 
 def load_json_config(path: Path) -> dict[str, Any]:

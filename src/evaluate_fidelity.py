@@ -7,10 +7,10 @@ import numpy as np
 import pandas as pd
 
 
-WORKSHOP_DIR = Path(__file__).resolve().parents[1]
-DEFAULT_REAL_CSV = WORKSHOP_DIR / "data" / "processed" / "weak_multimodal_benchmark.csv"
-DEFAULT_SYNTH_CSV = WORKSHOP_DIR / "data" / "processed" / "synthetic_independent_sampling.csv"
-DEFAULT_OUTPUT_CSV = WORKSHOP_DIR / "data" / "processed" / "fidelity_report.csv"
+PROJECT_ROOT = Path(__file__).resolve().parents[1]
+DEFAULT_REAL_CSV = PROJECT_ROOT / "data" / "processed" / "weak_multimodal_benchmark.csv"
+DEFAULT_SYNTH_CSV = PROJECT_ROOT / "data" / "processed" / "synthetic_independent_sampling.csv"
+DEFAULT_OUTPUT_CSV = PROJECT_ROOT / "data" / "processed" / "fidelity_report.csv"
 
 
 def infer_column_types(df: pd.DataFrame) -> tuple[list[str], list[str]]:

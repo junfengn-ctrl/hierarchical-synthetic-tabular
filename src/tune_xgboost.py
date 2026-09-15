@@ -10,9 +10,9 @@ from evaluate_utility import evaluate_utility
 from synth_xgboost import conditional_xgboost_synthesis
 
 
-WORKSHOP_DIR = Path(__file__).resolve().parents[1]
-DEFAULT_REAL_CSV = WORKSHOP_DIR / "data" / "processed" / "weak_multimodal_benchmark.csv"
-DEFAULT_OUTPUT_DIR = WORKSHOP_DIR / "data" / "processed" / "xgboost_tuning"
+PROJECT_ROOT = Path(__file__).resolve().parents[1]
+DEFAULT_REAL_CSV = PROJECT_ROOT / "data" / "processed" / "weak_multimodal_benchmark.csv"
+DEFAULT_OUTPUT_DIR = PROJECT_ROOT / "data" / "processed" / "xgboost_tuning"
 
 
 def summarize_cross_modal(cross_modal_df: pd.DataFrame) -> tuple[float, float]:

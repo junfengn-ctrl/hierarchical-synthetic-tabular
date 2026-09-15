@@ -8,14 +8,14 @@ import numpy as np
 import pandas as pd
 
 
-WORKSHOP_DIR = Path(__file__).resolve().parents[1]
+PROJECT_ROOT = Path(__file__).resolve().parents[1]
 os.environ.setdefault("MPLCONFIGDIR", "/tmp/matplotlib")
 
 import matplotlib.pyplot as plt
 
-DEFAULT_FAST_SUMMARY_CSV = WORKSHOP_DIR / "data" / "processed" / "experiments" / "experiment_summary.csv"
-DEFAULT_SDV_SUMMARY_CSV = WORKSHOP_DIR / "data" / "processed" / "experiments_sdv" / "experiment_summary.csv"
-DEFAULT_OUTPUT = WORKSHOP_DIR / "data" / "processed" / "result_comparison.png"
+DEFAULT_FAST_SUMMARY_CSV = PROJECT_ROOT / "data" / "processed" / "experiments" / "experiment_summary.csv"
+DEFAULT_SDV_SUMMARY_CSV = PROJECT_ROOT / "data" / "processed" / "experiments_sdv" / "experiment_summary.csv"
+DEFAULT_OUTPUT = PROJECT_ROOT / "data" / "processed" / "result_comparison.png"
 
 METHOD_ORDER = ["independent", "gaussian_copula", "random_forest", "xgboost", "ctgan", "tvae"]
 METHOD_LABELS = {

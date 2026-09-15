@@ -6,9 +6,9 @@ from pathlib import Path
 import pandas as pd
 
 
-WORKSHOP_DIR = Path(__file__).resolve().parents[1]
-DEFAULT_INPUT_CSV = WORKSHOP_DIR / "data" / "processed" / "weak_multimodal_benchmark.csv"
-DEFAULT_OUTPUT_CSV = WORKSHOP_DIR / "data" / "processed" / "synthetic_independent_sampling.csv"
+PROJECT_ROOT = Path(__file__).resolve().parents[1]
+DEFAULT_INPUT_CSV = PROJECT_ROOT / "data" / "processed" / "weak_multimodal_benchmark.csv"
+DEFAULT_OUTPUT_CSV = PROJECT_ROOT / "data" / "processed" / "synthetic_independent_sampling.csv"
 
 
 def independent_column_sampling(

@@ -14,10 +14,10 @@ from sklearn.preprocessing import OneHotEncoder, StandardScaler
 from sklearn.model_selection import train_test_split
 
 
-WORKSHOP_DIR = Path(__file__).resolve().parents[1]
-DEFAULT_REAL_CSV = WORKSHOP_DIR / "data" / "processed" / "weak_multimodal_benchmark.csv"
-DEFAULT_SYNTH_CSV = WORKSHOP_DIR / "data" / "processed" / "synthetic_independent_sampling.csv"
-DEFAULT_OUTPUT_CSV = WORKSHOP_DIR / "data" / "processed" / "utility_report.csv"
+PROJECT_ROOT = Path(__file__).resolve().parents[1]
+DEFAULT_REAL_CSV = PROJECT_ROOT / "data" / "processed" / "weak_multimodal_benchmark.csv"
+DEFAULT_SYNTH_CSV = PROJECT_ROOT / "data" / "processed" / "synthetic_independent_sampling.csv"
+DEFAULT_OUTPUT_CSV = PROJECT_ROOT / "data" / "processed" / "utility_report.csv"
 
 
 def build_preprocessor(X: pd.DataFrame) -> ColumnTransformer:

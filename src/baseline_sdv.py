@@ -8,10 +8,10 @@ import numpy as np
 import pandas as pd
 
 
-WORKSHOP_DIR = Path(__file__).resolve().parents[1]
-DEFAULT_INPUT_CSV = WORKSHOP_DIR / "data" / "processed" / "weak_multimodal_benchmark.csv"
-DEFAULT_OUTPUT_CSV = WORKSHOP_DIR / "data" / "processed" / "synthetic_sdv.csv"
-DEFAULT_METADATA_JSON = WORKSHOP_DIR / "data" / "processed" / "synthetic_sdv_metadata.json"
+PROJECT_ROOT = Path(__file__).resolve().parents[1]
+DEFAULT_INPUT_CSV = PROJECT_ROOT / "data" / "processed" / "weak_multimodal_benchmark.csv"
+DEFAULT_OUTPUT_CSV = PROJECT_ROOT / "data" / "processed" / "synthetic_sdv.csv"
+DEFAULT_METADATA_JSON = PROJECT_ROOT / "data" / "processed" / "synthetic_sdv_metadata.json"
 
 SDVMethod = Literal["ctgan", "tvae"]
 
