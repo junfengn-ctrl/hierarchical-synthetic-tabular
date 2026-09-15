@@ -1,15 +1,51 @@
 # Hierarchical Synthetic Tabular Data Generation: A Hybrid Top-Down and Bottom-Up Framework
 
-This repository accompanies the paper *Hierarchical Synthetic Tabular Data Generation: A Hybrid Top-Down and Bottom-Up Framework* by Junfeng Nie, Alvin Jin, and Xiaohui Chen (University of Southern California; AnyFluxion). It provides a reproducible workflow for synthetic data generation on tabular data and weakly aligned text–tabular data.
+[![arXiv](https://img.shields.io/badge/arXiv-2605.28198-b31b1b.svg)](https://arxiv.org/abs/2605.28198)
+[![CI](https://github.com/junfengn-ctrl/hierarchical-synthetic-tabular/actions/workflows/ci.yml/badge.svg)](https://github.com/junfengn-ctrl/hierarchical-synthetic-tabular/actions/workflows/ci.yml)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
-The framework adopts a hybrid top-down / bottom-up design: top-down rule providers define the schema and weak cross-modal alignment, while lower-cost bottom-up generators synthesize records that are subsequently evaluated for fidelity and downstream utility. The project is framed as a benchmark workflow for hybrid, rule-guided synthetic data rather than a single-method claim.
+**Paper:** [Hierarchical Synthetic Tabular Data Generation: A Hybrid Top-Down and Bottom-Up Framework](https://arxiv.org/abs/2605.28198)
+
+**Status:** Accepted as a poster at **FMSD @ ICML 2026**
+
+**Authors:** Junfeng Nie, Alvin Jin, and Xiaohui Chen
+
+This repository provides a reproducible benchmark for synthetic generation on tabular and weakly aligned text–tabular data. The framework separates top-down semantic constraints from bottom-up statistical generation: rule providers define schema and cross-modal alignment, while lower-cost generators learn local distributions and synthesize records.
+
+## Highlights
+
+- **Hybrid rule-guided synthesis:** combines manually specified or Gemini-generated alignment rules with statistical tabular generators.
+- **Six synthesis methods:** independent sampling, Gaussian copula, random forest, XGBoost, CTGAN, and TVAE.
+- **Four benchmarks:** two weakly aligned text–tabular datasets plus Adult Income and German Credit.
+- **Reproducible evaluation:** repeated seeds, XGBoost ablations, TRTR/TSTR downstream utility, distributional fidelity, and cross-modal consistency.
+
+The maintenance additions in this repository—documentation, reference result files, tests, CI, and the standalone smoke demo—do not change the paper's data preparation, synthesis, benchmark configuration, or evaluation logic.
+
+## Results at a Glance
+
+| benchmark | strongest fast method | TRTR AUROC | TSTR AUROC | gap |
+| --- | --- | ---: | ---: | ---: |
+| `weak_multimodal` | XGBoost | 0.9460 | 0.9190 | -0.0270 |
+| `weak_multimodal_gemini` | Random forest | 1.0000 | 0.9998 | -0.0002 |
+| `adult_income` | Random forest | 0.9063 | 0.8770 | -0.0293 |
+| `german_credit` | Gaussian copula | 0.7833 | 0.7750 | -0.0083 |
+
+![TSTR utility and cross-modal comparison across synthesis methods](assets/result_comparison.png)
+
+The Gemini benchmark is a controlled alignment prototype: its near-perfect scores result from deliberately strict target–sentiment rules and should not be interpreted as natural multimodal generalization. Machine-readable summaries are available in [`results/`](results/).
 
 ## Setup
 
-Create or activate a Python environment, then install dependencies:
+The repository is tested with Python 3.11. Create or activate an environment, then install dependencies:
 
 ```bash
 python -m pip install -r requirements.txt
+```
+
+For the exact direct dependency versions exercised by local verification and CI, use:
+
+```bash
+python -m pip install -r requirements-tested.txt
 ```
 
 Required packages are listed in `requirements.txt`:
@@ -20,18 +56,34 @@ Required packages are listed in `requirements.txt`:
 - `xgboost`
 - `sdv`
 
+## 30-Second Smoke Demo
+
+Run a download-free end-to-end check on a deterministic toy dataset:
+
+```bash
+python examples/smoke_demo.py
+```
+
+The demo exercises synthetic sampling, schema preservation, fidelity evaluation, leakage-safe TSTR evaluation, and artifact generation in a temporary directory. It does not modify the benchmark datasets or published result configuration.
+
+Run the core test suite with:
+
+```bash
+python -m unittest discover -s tests -v
+```
+
 ## Data
 
 Raw and processed datasets are not tracked by git. Place the required raw CSV files under `data/raw/`, then regenerate processed files with the pipeline.
 
 | dataset | expected path | role |
 | --- | --- | --- |
-| Bank Marketing | `data/raw/bankmarketing.csv` | tabular source for weak multimodal benchmarks |
-| FinancialPhraseBank | `data/raw/FinancialPhraseBank.csv` | text source for weak multimodal benchmarks |
-| Adult Income | `data/raw/adultincome.csv` | tabular benchmark |
-| German Credit | `data/raw/German_Credit_data.csv` | tabular benchmark |
+| [Bank Marketing](https://archive.ics.uci.edu/dataset/222/bank+marketing) | `data/raw/bankmarketing.csv` | tabular source for weak multimodal benchmarks |
+| [FinancialPhraseBank](https://arxiv.org/abs/1307.5336) | `data/raw/FinancialPhraseBank.csv` | text source for weak multimodal benchmarks |
+| [Adult Income](https://archive.ics.uci.edu/dataset/2/adult) | `data/raw/adultincome.csv` | tabular benchmark |
+| [German Credit](https://archive.ics.uci.edu/dataset/144/statlog+german+credit+data) | `data/raw/German_Credit_data.csv` | tabular benchmark |
 
-Generated files under `data/processed/` are local artifacts and can be recreated.
+Use each source under its applicable terms and rename the downloaded file to the expected path above. Generated files under `data/processed/` are local artifacts and can be recreated; compact reference results are versioned separately under `results/`.
 
 ## Quick Start
 
@@ -280,11 +332,11 @@ Fidelity columns:
 - `mean_categorical_tvd`
 - `mean_cross_modal_abs_diff`
 
-By default, per-run synthetic datasets, fidelity reports, utility reports, and metadata files are stored in temporary directories and removed after aggregation. Use `--keep-run-artifacts` to keep them.
+By default, per-run synthetic datasets, fidelity reports, utility reports, and metadata files are stored in temporary directories and removed after aggregation. Use `--keep-run-artifacts` to keep them. The `results/` directory contains the compact reference CSV files used for the tables in this README.
 
 ## Results
 
-The tables below summarize one regenerated local run. Since generated outputs are ignored by git, results should be regenerated locally for reproduction.
+The tables below summarize one regenerated local run. Compact reference CSVs are versioned under [`results/`](results/); regenerate them locally to verify the workflow or compare a changed configuration.
 
 Unless otherwise stated, accuracy, F1, and AUROC in the result tables are TSTR metrics: models are trained on synthetic data and evaluated on held-out real data. `TRTR AUROC` is included as a real-data reference, and `gap AUROC` is computed as `TSTR AUROC - TRTR AUROC`.
 
@@ -369,15 +421,27 @@ Add a weak multimodal benchmark:
 ```text
 configs/
   JSON configuration for datasets, experiment inputs, and rule providers.
+.github/workflows/
+  Continuous-integration checks for Python 3.11.
+assets/
+  Figures displayed in this README.
 data/
   raw/
     Local raw datasets. CSV files are ignored by git.
   processed/
     Local generated datasets, synthetic outputs, and reports. Ignored by git.
+examples/
+  Download-free smoke demo using a deterministic toy dataset.
+results/
+  Versioned reference summaries and per-seed benchmark results.
 src/
   Preprocessing, synthesis, evaluation, ablation, and experiment runners.
+tests/
+  Core behavior, reproducibility, leakage, fidelity, and CLI checks.
 requirements.txt
-  Python dependencies.
+  Direct Python dependencies.
+requirements-tested.txt
+  Direct dependency versions verified locally and in CI.
 ```
 
 ## Script Reference
@@ -420,10 +484,16 @@ Supporting utilities:
 If you use this code or build on this work, please cite:
 
 ```bibtex
-@inproceedings{nie2026hierarchical,
+@misc{nie2026hierarchical,
   title     = {Hierarchical Synthetic Tabular Data Generation: A Hybrid Top-Down and Bottom-Up Framework},
   author    = {Nie, Junfeng and Jin, Alvin and Chen, Xiaohui},
   year      = {2026},
+  eprint    = {2605.28198},
+  archivePrefix = {arXiv},
+  primaryClass  = {cs.LG},
+  doi       = {10.48550/arXiv.2605.28198},
+  url       = {https://arxiv.org/abs/2605.28198},
+  note      = {Accepted as a poster at FMSD @ ICML 2026},
 }
 ```
 

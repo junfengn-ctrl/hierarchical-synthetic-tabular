@@ -1,0 +1,18 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite the accompanying paper."
+title: "Hierarchical Synthetic Tabular Data Generation"
+type: software
+authors:
+  - family-names: Nie
+    given-names: Junfeng
+  - family-names: Jin
+    given-names: Alvin
+  - family-names: Chen
+    given-names: Xiaohui
+repository-code: "https://github.com/junfengn-ctrl/hierarchical-synthetic-tabular"
+url: "https://arxiv.org/abs/2605.28198"
+license: MIT
+identifiers:
+  - type: doi
+    value: "10.48550/arXiv.2605.28198"
+    description: "Accompanying paper"
